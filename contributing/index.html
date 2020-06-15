@@ -594,7 +594,7 @@ Make sure these are not in use, so the tests can run properly.</p>
 <h2 id="documenting">Documenting</h2>
 <p>Documentation pages are located under the <code>docs/</code> folder.</p>
 <p>To run the documentation site locally (useful for previewing changes), use:</p>
-<div class="codehilite"><pre><span></span><code>$ scripts/docs-serve
+<div class="codehilite"><pre><span></span><code>$ scripts/docs
 </code></pre></div>
 
 
@@ -602,13 +602,13 @@ Make sure these are not in use, so the tests can run properly.</p>
 <p>Once you've submitted your pull request, the test suite will automatically run, and the results will show up in GitHub.
 If the test suite fails, you'll want to click through to the "Details" link, and try to identify why the test suite failed.</p>
 <p align="center" style="margin: 0 0 10px">
-  <img src="https://raw.githubusercontent.com/encode/httpx/master/docs/img/travis-fail.png" alt='Failing PR commit status'>
+  <img src="https://raw.githubusercontent.com/encode/httpx/master/docs/img/gh-actions-fail.png" alt='Failing PR commit status'>
 </p>
 
 <p>Here are some common ways the test suite can fail:</p>
 <h3 id="check-job-failed">Check Job Failed</h3>
 <p align="center" style="margin: 0 0 10px">
-  <img src="https://raw.githubusercontent.com/encode/httpx/master/docs/img/travis-fail-check.png" alt='Failing Travis lint job'>
+  <img src="https://raw.githubusercontent.com/encode/httpx/master/docs/img/gh-actions-fail-check.png" alt='Failing GitHub action lint job'>
 </p>
 
 <p>This job failing means there is either a code formatting issue or type-annotation issue.
@@ -624,16 +624,15 @@ and if that job succeeds commit the changes.</p>
 a variety of reasons like invalid markdown or missing configuration within <code>mkdocs.yml</code>.</p>
 <h3 id="python-3x-job-failed">Python 3.X Job Failed</h3>
 <p align="center" style="margin: 0 0 10px">
-  <img src="https://raw.githubusercontent.com/encode/httpx/master/docs/img/travis-fail-test.png" alt='Failing Travis test job'>
+  <img src="https://raw.githubusercontent.com/encode/httpx/master/docs/img/gh-actions-fail-test.png" alt='Failing GitHub action test job'>
 </p>
 
 <p>This job failing means the unit tests failed or not all code paths are covered by unit tests.</p>
 <p>If tests are failing you will see this message under the coverage report:</p>
 <p><code>=== 1 failed, 435 passed, 1 skipped, 1 xfailed in 11.09s ===</code></p>
-<p>If tests succeed but coverage isn't 100% you will see this message under the coverage report:</p>
+<p>If tests succeed but coverage doesn't reach our current threshold, you will see this
+message under the coverage report:</p>
 <p><code>FAIL Required test coverage of 100% not reached. Total coverage: 99.00%</code></p>
-<p>Look at the <a href="https://codecov.io/gh/encode/httpx/pulls">coverage report from codecov</a>
-for the pull request for help debugging coverage.</p>
 <h2 id="releasing">Releasing</h2>
 <p><em>This section is targeted at HTTPX maintainers.</em></p>
 <p>Before releasing a new version, create a pull request that includes:</p>
@@ -651,8 +650,17 @@ for the pull request for help debugging coverage.</p>
 </li>
 <li><strong>A version bump</strong>: see <code>__version__.py</code>.</li>
 </ul>
-<p>For an example, see <a href="https://github.com/encode/httpx/pull/362">#362</a>.</p>
-<p>Once the release PR is merged, run <code>$ scripts/publish</code> to publish the new release to PyPI.</p>
+<p>For an example, see <a href="https://github.com/encode/httpx/pull/1006">#1006</a>.</p>
+<p>Once the release PR is merged, create a
+<a href="https://github.com/encode/httpx/releases/new">new release</a> including:</p>
+<ul>
+<li>Tag version like <code>0.13.3</code>.</li>
+<li>Release title <code>Version 0.13.3</code></li>
+<li>Description copied from the changelog.</li>
+</ul>
+<p>Once created this release will be automatically uploaded to PyPI.</p>
+<p>If something goes wrong with the PyPI job the release can be published using the
+<code>scripts/publish</code> script.</p>
 <h2 id="development-proxy-setup">Development proxy setup</h2>
 <p>To test and debug requests via a proxy it's best to run a proxy server locally.
 Any server should do but HTTPCore's test suite uses

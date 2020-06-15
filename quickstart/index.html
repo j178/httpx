@@ -762,6 +762,24 @@ of items for the file value:</p>
 </code></pre></div>
 
 
+<p>If you need to include non-file data fields in the multipart form, use the <code>data=...</code> parameter:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;Hello, world!&#39;</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">files</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;report.xls&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;https://httpbin.org/post&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="o">...</span>
+  <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;... binary content ...&gt;&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello, world!&quot;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 <h2 id="sending-json-encoded-data">Sending JSON Encoded Data</h2>
 <p>Form encoded data is okay if all you need is a simple key-value data structure.
 For more complicated data structures you'll often want to use JSON encoding instead.</p>
@@ -810,8 +828,8 @@ binary data.</p>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">not_found</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
   <span class="n">File</span> <span class="s2">&quot;/Users/tomchristie/GitHub/encode/httpcore/httpx/models.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">776</span><span class="p">,</span> <span class="ow">in</span> <span class="n">raise_for_status</span>
-    <span class="k">raise</span> <span class="n">HttpError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-<span class="n">httpx</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">HttpError</span><span class="p">:</span> <span class="mi">404</span> <span class="n">Not</span> <span class="n">Found</span>
+    <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<span class="n">httpx</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">:</span> <span class="mi">404</span> <span class="n">Not</span> <span class="n">Found</span>
 </code></pre></div>
 
 

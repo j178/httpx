@@ -1183,6 +1183,7 @@ MIME header field.</li>
 <p class="admonition-title">Tip</p>
 <p>It is safe to upload large files this way. File uploads are streaming by default, meaning that only one chunk will be loaded into memory at a time.</p>
 </div>
+<p>Non-file data fields can be included in the multipart form using by passing them to <code>data=...</code>.</p>
 <h2 id="customizing-authentication">Customizing authentication</h2>
 <p>When issuing requests or instantiating a client, the <code>auth</code> argument can be used to pass an authentication scheme to use. The <code>auth</code> argument may be one of the following...</p>
 <ul>
